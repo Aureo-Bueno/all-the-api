@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "UMj1uP1k3qgjqTvkSqRVK/2thdAGj9Fg0u+5jB7W+qE=",
+  "Source": "dotnet_api",
+  "BasePath": "_content/dotnet_api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
