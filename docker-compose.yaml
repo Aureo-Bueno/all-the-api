@@ -1,0 +1,44 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: your_postgres_username
+      POSTGRES_PASSWORD: your_postgres_password
+      POSTGRES_DB: your_postgres_database
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api_dotnet:
+    build:
+      context: ./dotnet_api
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=your_postgres_database;Username=your_postgres_username;Password=your_postgres_password
+    ports:
+      - "5000:5000"
+
+  api_nestjs:
+    build:
+      context: ./nestjs_api
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      TYPEORM_CONNECTION: postgres
+      TYPEORM_HOST: postgres
+      TYPEORM_PORT: 5432
+      TYPEORM_USERNAME: your_postgres_username
+      TYPEORM_PASSWORD: your_postgres_password
+      TYPEORM_DATABASE: your_postgres_database
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:
